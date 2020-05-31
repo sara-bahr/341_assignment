@@ -23,7 +23,7 @@ sinon.spy(resMock, "send");
 
 describe('Get Weather', function() {
 
-  it('with without zip code', function() {
+  it('with without city code', function() {
     reqMock = {
       query: {
 
@@ -38,7 +38,7 @@ describe('Get Weather', function() {
   it('with valid zip code and error from request call', function() {
     reqMock = {
       query: {
-        zip: 79968
+        zip: "79bds"
       }
     };
 
@@ -57,7 +57,7 @@ describe('Get Weather', function() {
   it('with incomplete zip code', function() {
     reqMock = {
       query: {
-        zip: 79968
+        zip: 799689888
       }
     };
 
