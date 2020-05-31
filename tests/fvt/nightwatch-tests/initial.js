@@ -1,7 +1,7 @@
 
 
 module.exports = {
-    //'@disabled': true,  // This will prevent the test module from running.
+    //  '@disabled': true,  // This will prevent the test module from running.
   
     after: (browser, done) => {
         console.log('After called')
