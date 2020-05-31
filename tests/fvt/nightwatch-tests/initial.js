@@ -1,7 +1,7 @@
 
 
 module.exports = {
-    '@disabled': false,  // This will prevent the test module from running.
+    //'@disabled': true,  // This will prevent the test module from running.
   
     after: (browser, done) => {
         console.log('After called')
@@ -10,7 +10,7 @@ module.exports = {
         .end(done);
     },
 
-    'Navigate to the DemoDOI - valid zip': async (browser) => {
+    'Navigate to the DemoDOI - valid city': async (browser) => {
         const demodoi = browser.page.demodoi();
         const { cityName } = demodoi.section;
     
@@ -26,13 +26,13 @@ module.exports = {
         cityName.expect.element('@firstApp').text.to.equal('Leander');
     },
 
-    'Navigate to the DemoDOI - invalid zip': async (browser) => {
+    'Navigate to the DemoDOI - invalid city': async (browser) => {
         const demodoi = browser.page.demodoi();
     
         await demodoi.navigate().waitForElementVisible('@inputText');
 
         await demodoi.setValue('@inputText', [
-            '90000',
+            'canada',
             browser.Keys.ENTER
           ]);
     
