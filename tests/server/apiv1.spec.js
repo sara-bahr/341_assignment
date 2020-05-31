@@ -103,6 +103,6 @@ describe('Get Weather', function() {
 
     assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
     assert(resMock.send.lastCall.args[0].city === 'Sara Bahr', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
-    assert(resMock.send.lastCall.args[0].weather === 'Conditions are warm and temperature is 78 c', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
+    assert(resMock.send.lastCall.args[0].weather === 'Conditions are Warm and temperature is 78 c', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
   });
 });
