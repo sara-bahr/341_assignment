@@ -38,7 +38,7 @@ describe('Get Weather', function() {
   it('with valid city name and error from request call', function() {
     reqMock = {
       query: {
-        zip: "79bds"
+        zip: "hamilton"
       }
     };
 
@@ -82,10 +82,10 @@ describe('Get Weather', function() {
 
     const body = {
       cod: 200,
-      name: 'El Paso',
+      name: 'Sara Bahr',
       weather: [
         {
-          main: 'cold'
+          main: 'Warm'
         }
       ],
       main: {
