@@ -6,16 +6,34 @@ var REQUEST = require('request');
 var request = REQUEST.defaults( {
     strictSSL: false
 });
+const ibmdb = require('ibm_db');
+exports.database = function(res) {
+		ibmdb.open("DRIVER={DB2};DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net; UID=lwq94714;PWD=tp1070m8t@2c5n3l;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
+			if (err) {
+				console.log(err);
+				return res.status(400).send("error")
+			} 
+		
+		  conn.query('select * from  WEATHERBYLOCATION' , function (err, data) {
+			if (err){
+				console.log(err);
+				return res.status(400).send("error")
+			}
+			console.log(data);
+			return  res.status(200).send("error");
+		  });
+		})
 
+}
 var OPENWEATHERURL = "https://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric";
 
 exports.getWeather = function(req, res) {
-	var zip = req.query.zip;
-	if( (zip === null) || (typeof(zip) === 'undefined') ) {
-		return res.status(400).send('zip missing');
+	var city = req.query.city;
+	if( (city === null) || (typeof(city) === 'undefined') ) {
+		return res.status(400).send('city missing');
 	}
 
-	var aurl = OPENWEATHERURL + '&q=' + zip + ',nz';
+	var aurl = OPENWEATHERURL + '&q=' + city + ',nz';
 
 	request({
 		method: 'GET',
@@ -39,37 +57,6 @@ exports.getWeather = function(req, res) {
 };
 router.get('/getWeather', exports.getWeather);
 
-/*
-exports.getWeather2 = function(req, res) {
-	var zip = req.query.zip;
-	if( (zip === null) || (typeof(zip) === 'undefined') ) {
-		return res.status(400).send('zip missing');
-	}
-
-	var aurl = OPENWEATHERURL + '&zip=' + zip + ',us';
-
-	request({
-		method: 'GET',
-        url: aurl,
-  		json: true
-    }, function(err, resp, body) {
-    	if(err) {
-    		res.status(400).send('Failed to get the data');
-    		//console.error("Failed to send request to openweathermap.org", err);
-    	} else {
-    		if(body.cod === 200) {
-    			var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' F';
-    			var response = {city: body.name, weather: weath};
-    			return res.status(200).send(response);
-    		} else {
-                return res.status(400).send({msg:'Failed'});
-            }
-    	}
-    });
-
-};
-router.get('/getWeather2', exports.getWeather2);
-*/
 exports.getWeather3 = function(req, res) {
 	var zip = req.query.zip;
 	if( (zip === null) || (typeof(zip) === 'undefined') ) {

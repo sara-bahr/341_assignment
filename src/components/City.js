@@ -26,21 +26,22 @@ function City(props) {
                         }
                     `}
                     </style>
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        id="usr" 
+                    <input
+                        type="text/html" src="Map.html" width="100%" height="1000"
+                        className="form-control"
+                        id="usr"
                         placeholder="NZ city name"
                         onKeyPress={(event) => {
                             if (event.key === "Enter") {
                                 validate(event);
                             }
                         }}
-                    ></input>   
+                    ></input>
                 </div>
+                   
             </div>
             <div className="pl-3 row">
-                <div className="text-danger small"> { validationError }</div>
+                <div className="text-danger small"> {validationError}</div>
             </div>
         </div>
     );

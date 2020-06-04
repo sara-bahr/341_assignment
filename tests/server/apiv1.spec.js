@@ -23,6 +23,18 @@ sinon.spy(resMock, "send");
 
 describe('Get Weather', function() {
 
+  it('database', function() {
+    reqMock = {
+      query: {
+
+      }
+    };
+
+    apiv1.database(resMock);
+
+    assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+  });
+
   it('with without city name', function() {
     reqMock = {
       query: {
@@ -38,7 +50,7 @@ describe('Get Weather', function() {
   it('with valid city name and error from request call', function() {
     reqMock = {
       query: {
-        zip: "hamilton"
+        city: "hamilton"
       }
     };
 
@@ -57,7 +69,7 @@ describe('Get Weather', function() {
   it('Get weather with incomplete city name', function() {
     reqMock = {
       query: {
-        zip: 799689888
+        city: "ham"
       }
     };
 
@@ -76,20 +88,20 @@ describe('Get Weather', function() {
   it('with valid city name', function() {
     reqMock = {
       query: {
-        zip: 79968
+        city: 79968
       }
     };
 
     const body = {
       cod: 200,
-      name: 'Sara Bahr',
+      name: 'Hamilton',
       weather: [
         {
-          main: 'Warm'
+          main: 'Cold'
         }
       ],
       main: {
-        temp: 78
+        temp: 10
       }
     };
 
@@ -102,7 +114,7 @@ describe('Get Weather', function() {
     apiv1.getWeather(reqMock, resMock);
 
     assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
-    assert(resMock.send.lastCall.args[0].city === 'Sara Bahr', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
-    assert(resMock.send.lastCall.args[0].weather === 'Conditions are Warm and temperature is 78 c', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
+    assert(resMock.send.lastCall.args[0].city === 'Hamilton', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
+    assert(resMock.send.lastCall.args[0].weather === 'Conditions are Cold and temperature is 10 c', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
   });
 });
