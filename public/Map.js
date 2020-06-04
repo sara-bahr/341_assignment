@@ -62,17 +62,18 @@ function initMap() {
 }
 var handleCityChange = async (cityName) => {
 
-
-
+    
+    
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric&q=${cityName},nz`)
     const json = await res.json()
     // console.log(json);
+    localStorage.setItem("store", json.name)
 
     var table = document.getElementsByClassName("table")[0]
     ///  console.log(table)
     if (json.cod === 200) {
         //document.cookie = json.name;
-        localStorage.setItem("store", json.name)
+        
         let rows = [{
             "name": "City",
             "index": json.name

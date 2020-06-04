@@ -17,14 +17,17 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var firestore = firebase.firestore();
 const docref = firestore.collection("locations").doc("cityNames")
-
 var element = document.getElementById("map");
 element.onclick = function(){
-    if(localStorage.getItem("store")){
+    if(localStorage.getItem("store")!=null){
+        console.log(localStorage.getItem("store"))
         docref.set({
             name: localStorage.getItem("store")
         }).then(function(){
-            console.log("DONE!" + localStorage.getItem("store"));
+            docref.set({
+                name: localStorage.getItem("store")
+            })
+            console.log(localStorage.getItem("store"))
         }).catch(function(error) {
             console.log("error here", error)
         })
@@ -36,7 +39,7 @@ element.onclick = function(){
 docref.get().then(function(doc) {
     if(doc && doc.exists) {
         localStorage.setItem("data", doc.data().name);
-        console.log(doc.data().name);
+        console.log(doc.data().name + " retrieved");
         //localStorage.setItem("store", doc.data().name)
         handleCityChange(doc.data().name)
     }
